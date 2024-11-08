@@ -1,0 +1,17 @@
+.evaluacion-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.evaluacion-container p {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.evaluacion-container h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
