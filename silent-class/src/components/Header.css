@@ -1,0 +1,114 @@
+/* src/components/Header.css */
+
+header {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-nav,
+.right-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.left-nav li,
+.right-nav li {
+  margin: 0 10px;
+}
+
+.left-nav li:first-child {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.left-nav a,
+.right-nav a {
+  text-decoration: none;
+  color: #333;
+}
+
+.right-nav .login-button,
+.right-nav .signup-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.right-nav .signup-button {
+  margin-left: 10px;
+  background-color: #28a745;
+}
+
+.right-nav .login-button:hover {
+  background-color: #0056b3;
+}
+
+.right-nav .signup-button:hover {
+  background-color: #218838;
+}
+
+/* Style for Logout button */
+.right-nav .logout-button {
+  background-color: #dc3545; /* Red color */
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.right-nav .logout-button:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+  }
+
+  .left-nav,
+  .right-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .left-nav li,
+  .right-nav li {
+    margin: 10px 0;
+  }
+
+  .right-nav .signup-button {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 10px;
+  }
+
+  .left-nav li:first-child {
+    font-size: 20px;
+  }
+
+  .right-nav .login-button,
+  .right-nav .signup-button,
+  .right-nav .logout-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}

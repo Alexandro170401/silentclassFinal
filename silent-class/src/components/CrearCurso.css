@@ -1,0 +1,63 @@
+.curso-container {
+  width: 80%; /* Aumenta el ancho del contenedor */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+div {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input, textarea, select {
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+}
+
+button {
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+.editor-container {
+  margin-bottom: 20px;
+}
+
+.ql-editor {
+  min-height: 200px;
+  max-height: 400px; /* Controla la altura máxima */
+}
+
+/* Estilos específicos para el botón "Volver a cursos" */
+.volver-cursos-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 20px; /* Espacio debajo del botón */
+  font-size: 16px;
+}
+
+.volver-cursos-button:hover {
+  background-color: #0056b3;
+}
+
