@@ -25,7 +25,6 @@ function Header() {
       <nav>
         <ul className="left-nav">
           <li><Link to="/">SilentClass</Link></li>
-          <li><Link to="/exam">Examen</Link></li>
           <li><Link to="/mis-evaluaciones">Notas</Link></li>
           <li><Link to="/courses">Cursos</Link></li>
         </ul>

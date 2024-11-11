@@ -168,7 +168,7 @@ function EditarCurso() {
   
     try {
       const response = await fetch(`http://localhost:3001/api/courses/${id}`, {
-        method: 'POST', // Método PUT para actualizar
+        method: 'PUT', // Método PUT para actualizar
         headers: {
           'Content-Type': 'application/json',
         },

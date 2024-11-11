@@ -86,6 +86,10 @@ function Examen() {
   
       if (response.ok) {
         const result = await response.json();
+
+        // Muestra el mensaje de éxito
+        alert("Curso culminado exitosamente.\nEntrega de la nota y del curso recomendado.");
+        
         // Redirigir a la evaluación
         navigate(`/evaluacion/${result.evaluacionId}?nombreCurso=${encodeURIComponent(curso.nombre)}&especialidad=${encodeURIComponent(curso.especialidad)}`);
       } else {
