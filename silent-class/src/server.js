@@ -1,4 +1,3 @@
-require('dotenv').config(); // Cargar las variables de entorno desde el archivo .env
 const express = require('express');
 const mysql = require('mysql');  // Usamos mysql2 para soporte async/await
 const cors = require('cors');
@@ -6,12 +5,7 @@ const bcrypt = require('bcrypt'); // Para encriptar y comparar contraseñas
 const jwt = require('jsonwebtoken'); // Para generar un token de autenticación (opcional)
 const bodyParser = require('body-parser');
 const app = express();
-const port = process.env.APP_PORT || 3001; // Por si deseas configurar el puerto en .env
-
-console.log('DB Host:', process.env.DB_HOST);
-console.log('DB User:', process.env.DB_USER);
-console.log('DB Password:', process.env.DB_PASSWORD);
-console.log('DB Name:', process.env.DB_NAME);
+const port = 3001;
 
 // Middleware para analizar cuerpos de JSON
 app.use(cors());
@@ -20,13 +14,13 @@ app.use(express.json());
 
 // Configuración de conexión a la base de datos MySQL
 const DB  = mysql.createConnection({
-  host: process.env.DB_HOST,      // Dirección del host MySQL (ej: localhost o tu IP de HostGator)
-  user: process.env.DB_USER,         // Usuario de la base de datos MySQL
-  password: process.env.DB_PASSWORD,    // Contraseña del usuario MySQL
-  database: process.env.DB_NAME,    // Nombre de la base de datos
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+    host: 'localhost',      // Dirección del host MySQL (ej: localhost o tu IP de HostGator)
+    user: 'root',         // Usuario de la base de datos MySQL
+    password: '',    // Contraseña del usuario MySQL
+    database: 'silentclass',    // Nombre de la base de datos
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
 // Conexión a la base de datos
@@ -38,6 +32,7 @@ DB.connect((err) => {
 });
 
 // Definición de la ruta para obtener una evaluación por ID
+
 app.get('/api/evaluacion/:id', (req, res) => {
   const evaluacionId = req.params.id;
 
@@ -80,6 +75,7 @@ app.get('/api/estudiantes', (req, res) => {
 });
 
 // Ruta para obtener nombres de usuarios
+//API php nombres
 app.get('/api/nombres', (req, res) => {
   const SQL_QUERY = 'SELECT nombre FROM usuarios';  // Consulta para obtener los nombres de la tabla usuario
   DB.query(SQL_QUERY, (err, result) => {
@@ -91,6 +87,7 @@ app.get('/api/nombres', (req, res) => {
 });
 
 // Ruta para iniciar sesión
+//API php login
 app.post('/api/login', (req, res) => {
   const { correo, contrasena } = req.body;
 
@@ -107,8 +104,8 @@ app.post('/api/login', (req, res) => {
 
     const user = results[0];
 
-    // Verificar la contraseña
-    const passwordMatch = user.contrasena === contrasena;
+    // Verificar la contraseña (si está en texto plano o usando bcrypt si está encriptada)
+    const passwordMatch = user.contrasena === contrasena;  // Si usas contraseñas planas, de lo contrario usar bcrypt.compare
 
     if (!passwordMatch) {
       return res.status(400).json({ message: 'Correo o contraseña incorrectos' });
@@ -162,6 +159,7 @@ app.post('/api/login', (req, res) => {
 });
 
 // Ruta para crear un nuevo usuario (incluyendo "Padre")
+// API php registro
 app.post('/api/registro', (req, res) => {
   const { tipousuario, nombre, apellido_paterno, apellido_materno, dni, correo, contrasena, id_estudiante } = req.body;
 
@@ -249,8 +247,8 @@ function obtenerEvaluaciones(usuarioId, res) {
   });
 }
 
-
 // Ruta para crear un curso
+//API php crearCurso
 app.post('/api/crearCurso', (req, res) => {
   const { nombre, descripcion, instructor, especialidad, detalleCurso, preguntas } = req.body;
 
@@ -284,7 +282,7 @@ app.post('/api/crearCurso', (req, res) => {
         pregunta.opciones[1], 
         pregunta.opciones[2], 
         pregunta.opciones[3], 
-        pregunta.respuestaCorrecta + 1
+        pregunta.respuestaCorrecta
       ]);
 
       // Ejecutar la consulta para insertar las preguntas
@@ -399,6 +397,7 @@ app.get('/api/courses/:id', (req, res) => {
 });
 
 // Ruta para actualizar un curso existente
+// API php updateCourse
 app.put('/api/courses/:id', async (req, res) => {
   const cursoId = req.params.id;
   const { nombre, descripcion, instructor, especialidad, detalleCurso, preguntas } = req.body;
@@ -473,7 +472,6 @@ app.put('/api/courses/:id', async (req, res) => {
   }
 });
 
-
 // Ruta para obtener las preguntas del examen de un curso específico
 app.get('/api/examen/:cursoId', (req, res) => {
   const cursoId = req.params.cursoId;
@@ -499,7 +497,7 @@ app.get('/api/examen/:cursoId', (req, res) => {
 });
 
 app.post('/api/evaluarExamen', (req, res) => {
-  const { cursoId, usuarioId, respuestas, fecha } = req.body;
+  const { cursoId, usuarioId, respuestas, fecha } = req.body;  // Obtener usuarioId del cuerpo de la solicitud
 
   if (!usuarioId) {
     return res.status(400).json({ message: 'El usuarioId es requerido.' });
@@ -526,7 +524,6 @@ app.post('/api/evaluarExamen', (req, res) => {
 
     preguntas.forEach(pregunta => {
       const respuestaUsuario = respuestas[pregunta.id];
-      
       if (respuestaUsuario !== undefined && respuestaUsuario == pregunta.respuesta_correcta) {
         // Incrementar la nota dependiendo de la especialidad de la pregunta
         switch (pregunta.especialidad) {
@@ -566,7 +563,7 @@ app.post('/api/evaluarExamen', (req, res) => {
 
     // Guardar la evaluación en la base de datos
     const sqlInsert = 'INSERT INTO evaluaciones (curso_id, usuario_id, fecha, nota_matematicas, nota_lenguaje, nota_historia) VALUES (?, ?, ?, ?, ?, ?)';
-    DB.query(sqlInsert, [cursoId, usuarioId, fechaAjustada, notaMatematicas, notaLenguaje, notaHistoria], (err, result) => {
+    DB.query(sqlInsert, [cursoId, usuarioId, fecha, notaMatematicas, notaLenguaje, notaHistoria], (err, result) => {
       if (err) {
         console.error('Error al guardar la evaluación:', err);
         return res.status(500).json({ message: 'Error al guardar la evaluación' });
@@ -577,7 +574,7 @@ app.post('/api/evaluarExamen', (req, res) => {
   });
 });
 
-
+// API php recomendacion
 app.get('/api/recomendacion', (req, res) => {
   const { especialidad, cursoActual } = req.query;
 
@@ -603,6 +600,7 @@ app.get('/api/recomendacion', (req, res) => {
   });
 });
 
+
 app.get('/api/evaluacion/:evaluacionId', (req, res) => {
   const evaluacionId = req.params.evaluacionId;
 
@@ -627,6 +625,27 @@ app.get('/api/evaluacion/:evaluacionId', (req, res) => {
   });
 });
 
+
+// Endpoint para obtener las evaluaciones de un curso específico
+app.get('/api/courses/:cursoId/evaluaciones', (req, res) => {
+  const { cursoId } = req.params;
+
+  const query = `
+    SELECT e.id, e.nota, c.ncurso AS curso, u.nombre AS estudiante
+    FROM evaluaciones e
+    JOIN cursos c ON e.idcurso = c.idcurso
+    JOIN usuarios u ON e.idusuario = u.idusuario
+    WHERE e.idcurso = ?
+  `;
+
+  db.query(query, [cursoId], (err, results) => {
+    if (err) {
+      console.error('Error al obtener evaluaciones:', err);
+      return res.status(500).json({ error: 'Error al obtener las evaluaciones' });
+    }
+    res.json(results);
+  });
+});
 
 // Endpoint para obtener las evaluaciones de un curso específico
 app.get('/api/courses/:cursoId/evaluaciones', (req, res) => {

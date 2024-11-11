@@ -13,7 +13,7 @@ function LandingPage() {
   // Función para obtener nombres desde la API
   const fetchNombres = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nombres.php`);  // Cambiar la ruta a /api/nombres
+      const response = await fetch('http://localhost:3001/api/nombres');  // Cambiar la ruta a /api/nombres
       if (!response.ok) {
         throw new Error('Error al obtener los datos del servidor'); // Manejo de errores
       }

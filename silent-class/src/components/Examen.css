@@ -15,16 +15,6 @@
   flex-direction: column;
 }
 
-.opciones label {
-  display: block;
-  margin-bottom: 15px; /* Espacio entre las opciones */
-}
-
-input[type="radio"] {
-  margin-top: 5px; /* Espacio entre el texto de la opción y el círculo */
-  margin-left: 0;  /* Alinear el círculo al inicio de la línea */
-}
-
 .submit-examen-button {
   padding: 10px 20px;
   margin-top: 20px;

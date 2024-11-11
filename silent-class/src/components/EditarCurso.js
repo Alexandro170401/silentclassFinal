@@ -25,7 +25,7 @@ function EditarCurso() {
 
   useEffect(() => {
     // Recuperar los datos del curso y preguntas desde el backend
-    fetch(`${process.env.REACT_APP_API_URL}/api/courses.php?id=${id}`)
+    fetch(`http://localhost:3001/api/courses/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setFormData({
@@ -167,7 +167,7 @@ function EditarCurso() {
     };
   
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/updateCourse.php?id=${id}`, {
+      const response = await fetch(`http://localhost:3001/api/courses/${id}`, {
         method: 'POST', // Método PUT para actualizar
         headers: {
           'Content-Type': 'application/json',

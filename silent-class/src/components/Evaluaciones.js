@@ -14,7 +14,7 @@ function Evaluaciones() {
 
   const fetchEvaluaciones = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/courses/${cursoId}/evaluaciones`);
+      const response = await fetch(`http://localhost:3001/api/courses/${cursoId}/evaluaciones`);
       if (!response.ok) {
         throw new Error('Error al obtener las evaluaciones');
       }
@@ -38,7 +38,7 @@ function Evaluaciones() {
 
   return (
     <div>
-      <h2>Evaluaciones del Curso gaaaa</h2>
+      <h2>Evaluaciones del Curso</h2>
       <ul>
         {evaluaciones.map((evaluacion) => (
           <li key={evaluacion.id}>

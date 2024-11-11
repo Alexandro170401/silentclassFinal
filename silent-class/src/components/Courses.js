@@ -32,7 +32,7 @@ function Courses() {
 
   const fetchCourses = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/mostrarCursos.php`); // Asegúrate de que el endpoint está correcto
+      const response = await fetch("http://localhost:3001/api/courses"); // Asegúrate de que el endpoint está correcto
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

@@ -14,7 +14,7 @@ function ExamResult() {
   useEffect(() => {
     const fetchEspecialidades = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/especialidades`);
+        const response = await fetch('http://localhost:8000/especialidades');
         if (!response.ok) {
           throw new Error('Failed to fetch especialidades');
         }
@@ -39,7 +39,7 @@ function ExamResult() {
     const fetchExamResults = async (user) => {
       try {
         const idToken = await getAuth().currentUser.getIdToken();
-        const response = await fetch(`http://localhost:8000/exam-results`, {
+        const response = await fetch('http://localhost:8000/exam-results', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

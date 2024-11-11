@@ -19,7 +19,7 @@ function Examen() {
   // Obtener las preguntas del examen
   const fetchPreguntas = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/examen/${id}`);
+      const response = await fetch(`http://localhost:3001/api/examen/${id}`);
       if (!response.ok) {
         throw new Error('Error al obtener las preguntas del examen');
       }
@@ -28,7 +28,7 @@ function Examen() {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching exam questions:', error);
-      setError('Error al cargar las preguntas fsdfsfffd del examen');
+      setError('Error al cargar las preguntas del examen');
       setLoading(false);
     }
   };
@@ -36,7 +36,7 @@ function Examen() {
   // Obtener la información del curso (nombre y especialidad)
   const fetchCurso = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/courses/${id}`);
+      const response = await fetch(`http://localhost:3001/api/courses/${id}`);
       if (!response.ok) {
         throw new Error('Error al obtener los detalles del curso');
       }
@@ -65,7 +65,7 @@ function Examen() {
     };
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/evaluarExamen`, {
+      const response = await fetch('http://localhost:3001/api/evaluarExamen', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

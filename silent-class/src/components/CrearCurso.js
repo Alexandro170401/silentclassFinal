@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
-import { useNavigate } from 'react-router-dom';
 import 'react-quill/dist/quill.snow.css';
 import './CrearCurso.css';
 
@@ -21,6 +20,7 @@ function CrearCurso() {
     preguntas: [],
   });
 
+  // 5 preguntas con sus 4 respuestas
   const [preguntas, setPreguntas] = useState([
     {
       pregunta: '',
@@ -29,8 +29,6 @@ function CrearCurso() {
       respuestaCorrecta: null,
     },
   ]);
-
-  const navigate = useNavigate(); // Usamos useNavigate para la redirección
 
   const handleChange = (e) => {
     setFormData({
@@ -75,7 +73,7 @@ function CrearCurso() {
     e.preventDefault();
     const data = { ...formData, preguntas };
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/crearCurso.php`, {
+      const response = await fetch('http://localhost:3001/api/crearCurso', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,18 +93,8 @@ function CrearCurso() {
     }
   };
 
-  // Función para manejar la redirección a la página de cursos
-  const handleBackToCourses = () => {
-    navigate('/courses'); // Asume que esta es la ruta a la lista de cursos
-  };
-
   return (
     <div className="curso-container">
-      {/* Botón para regresar a la página de cursos */}
-      <button className="volver-cursos-button" onClick={handleBackToCourses}>
-        Volver a cursos
-      </button>
-
       <h1>Crear Curso</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -245,4 +233,3 @@ function CrearCurso() {
 }
 
 export default CrearCurso;
-

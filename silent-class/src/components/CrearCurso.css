@@ -24,6 +24,7 @@ input, textarea, select {
   width: 100%;
 }
 
+
 button {
   padding: 10px;
   background-color: #28a745;
@@ -43,21 +44,5 @@ button:hover {
 .ql-editor {
   min-height: 200px;
   max-height: 400px; /* Controla la altura máxima */
-}
-
-/* Estilos específicos para el botón "Volver a cursos" */
-.volver-cursos-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  margin-bottom: 20px; /* Espacio debajo del botón */
-  font-size: 16px;
-}
-
-.volver-cursos-button:hover {
-  background-color: #0056b3;
 }
 

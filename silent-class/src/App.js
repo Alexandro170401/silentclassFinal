@@ -43,7 +43,7 @@ function App() {
             <Route path="/courses/:cursoId/evaluaciones" component={Evaluaciones} /> {/* Asociado con Evaluaciones */}
             <Route path="/courses" component={Courses} />
             <Route path="/editar-curso/:id" element={<EditarCurso />} /> {/* Ruta para editar curso */}
-            <Route path="/mis-evaluaciones" element={<Notas />} />  {/* Ruta para ver las notas */}
+            <Route path="/mis-evaluaciones" element={<Notas usuarioId={usuarioId} />} />  {/* Ruta para ver las notas */}
           </Routes>
         </main>
         <Footer />

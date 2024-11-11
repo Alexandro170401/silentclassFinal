@@ -5,7 +5,6 @@ import './Auth.css';
 
 function Registro() {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     tipousuario: '',
     nombre: '',
@@ -66,7 +65,7 @@ function Registro() {
     setFormData({ ...formData, tipousuario: tipoUsuario });
 
     if (tipoUsuario === 'Padre') {
-      axios.get(`${process.env.REACT_APP_API_URL}/api/get_estudiantes.php`)
+      axios.get("http://localhost:3001/api/estudiantes")
         .then(response => {
           setEstudiantes(response.data);
         })
@@ -100,7 +99,7 @@ function Registro() {
     };
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/registro.php`, dataToSend);
+      const response = await axios.post("http://localhost:3001/api/registro", dataToSend);
       console.log('Usuario registrado:', response.data);
       alert('¡Registro exitoso! Serás redirigido a la página de inicio.');
       navigate('/');
