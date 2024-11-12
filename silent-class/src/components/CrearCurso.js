@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './CrearCurso.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Registrar el módulo de imágenes para ReactQuill
 const ImageFormat = Quill.import('formats/image');
@@ -10,6 +11,7 @@ ImageFormat.sanitize = function(url) {
 };
 
 function CrearCurso() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nombre: '',
     descripcion: '',
@@ -84,6 +86,7 @@ function CrearCurso() {
       const result = await response.json();
       if (response.ok) {
         alert('Curso creado con éxito');
+        navigate('/courses');
       } else {
         alert('Error al crear el curso: ' + result.message);
       }
@@ -96,6 +99,7 @@ function CrearCurso() {
   return (
     <div className="curso-container">
       <h1>Crear Curso</h1>
+      <button href='/courses'>Regresar Curso</button>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nombre del curso:</label>
